@@ -25,5 +25,8 @@ class Body:
         cmds.select(self.name)
         cmds.symmetricModelling(about="object", axis="Z")
 
+        #Import Thorax/Wings to copy
+
         # Iterate through user preferences and instantiate global vars w/ body objects?
 
+    #Deformers 

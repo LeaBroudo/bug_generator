@@ -1,6 +1,6 @@
 
 ### Head ###
-full_head = [".f[1680:2099]", ".f[2130:2159]"] #THIS WILL BE MORE
+head = [".f[1680:2099]", ".f[2130:2159]"] #THIS WILL BE MORE
 #Mouth
 #face
 #eyes
@@ -12,32 +12,14 @@ full_head = [".f[1680:2099]", ".f[2130:2159]"] #THIS WILL BE MORE
     #tip
 
 ### Thorax ###
-#Put in class
-"""
-def get_vert_stripes: 
-    """
-    """
 
-def get_horiz_stripes: 
-    """
-    """
-"""
 #thorax
 #mid_thorax
 #front_thorax
 #back_thorax
 
 ### Abdomen ###
-#Put in class
-"""
-def get_vert_stripes: 
-    """
-    """
 
-def get_horiz_stripes: 
-    """
-    """
-"""
 #abdomen
 #mid_abdomen
 #front_abdomen
