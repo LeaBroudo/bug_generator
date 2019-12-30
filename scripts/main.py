@@ -46,8 +46,11 @@ class Body:
         if num == 0: return 
         
         #Choose random locations for each arm
-        #Create new arm object
-        #Duplicate, add to list, move to correct location
+        #for
+            #Create new arm object
+            #Duplicate, add to list, move to correct location
+
+        #Duplicate special all to other side
     
     def createThoraxArms(self, num):
         if num == 0: return 
@@ -57,4 +60,14 @@ class Body:
         #Duplicate, add to list, move to correct location
 
     #Deformers 
+
+
+
+#######
+#Add leg and wing locations
+#Finish wing model, put each obj in diff file
+#Be able to use Create with legs/wings
+#Add lattice structure to each thing 
+#Start attaching lattice manip to methods
+#Finish rest of UI
 
