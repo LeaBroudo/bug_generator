@@ -23,7 +23,7 @@ back_abd_latt = [(12,0,0),(20,20,20)]
 
 ### Wings ###
 wing_rot = (36,-15,33)
-wing_locs = [(4,17,7), (16,17,7)] 
+wing_locs = [(4,8,3), (16,8,3)] 
 
 #REDOOOOOOOO
 wing_latt = [(0,0,0),(8,3,3)]

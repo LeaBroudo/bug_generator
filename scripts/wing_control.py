@@ -12,16 +12,25 @@ class Wing:
         #move pivot there
         #select thorax and abdomen, set soft select 
         #tilt degrees 
+        '''
+        TODO
+        '''
 
     def scaleWings(self, scale_x, scale_y, scale_z):
         #turn symmetry off from self.body
         #set soft select 
         #scale
         #turn symmetry on 
+        '''
+        TODO
+        '''
     
     ### Patterns ###
     def pattern(self, vars):
         #iterate through faces and lift up varying degrees?
+        '''
+        TODO
+        '''
 
     ### Scale Regions ###
     def scaleOut(self, scale_x, scale_y, scale_z):
@@ -29,17 +38,26 @@ class Wing:
         #set soft select 
         #scale
         #turn symmetry on 
+        '''
+        TODO
+        '''
 
     def scaleIn(self, scale_x, scale_y, scale_z):
         #turn symmetry off from self.body
         #set soft select 
         #scale
         #turn symmetry on 
+        '''
+        TODO
+        '''
 
     def scaleBase(self, scale_x, scale_y, scale_z):
         #turn symmetry off from self.body
         #set soft select 
         #scale
         #turn symmetry on 
+        '''
+        TODO
+        '''
     
     
