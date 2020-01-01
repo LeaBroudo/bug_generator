@@ -13,15 +13,17 @@ import wing_control
 
 ### General Body ###
 class Body:
-    def __init__(self, name, wing_num, abd_arm_num, thorax_arm_num):
-        
+    def __init__(self):
+
         # User Variables
-        self.name = name
-        self.wing_num = wing_num 
+        self.name = "" 
         self.a_arms = []
         self.t_arms = []
         self.wings = []
 
+    def importAll(self, name, wing_num, abd_arm_num, thorax_arm_num):
+        self.name = name
+        
         # Import body
         pathVar = os.path.dirname(__file__) # This stores the current working directory
         cmds.file( pathVar+"./Body.mb", i=True )
@@ -104,6 +106,7 @@ class Body:
 
 
         # Iterate through user preferences and instantiate global vars w/ body objects?
+        #Head
 
     
     #Deformers 
@@ -111,8 +114,6 @@ class Body:
 
 
 #######
-#Add leg and wing locations 
-#Be able to use Create with legs/wings
 #Start attaching lattice manip to methods
 #Finish rest of UI
 

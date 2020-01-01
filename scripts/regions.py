@@ -3,8 +3,17 @@
 neck_latt = [(0,0,0),(3,3,3)]
 face_latt = [(0,0,0),(3,3,3)]
 eye_latt = [(0,0,0),(3,3,10)]
-mandib_latt = [(0,0,0),(3,3,5)]
-antenna_latt = [(0,0,0),(3,3,3)]
+
+man_latt = [(0,0,0),(3,3,5)]
+man_str = "mandible_latt"
+man_width = [1,3]
+man_len = [1,6]
+man_height = [1,3]
+
+ant_latt = [(0,0,0),(3,3,3)]
+ant_str = "antenna_latt"
+ant_len = [1,5]
+ant_width = [1,6]
 
 
 ### Thorax ###

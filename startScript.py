@@ -71,14 +71,17 @@ class findPathWindow:
         cmds.deleteUI( self.loadDirWin, window=True ) # Close window
         import random
         import copy
-        import UI
-        reload(UI)
         import regions 
         reload(regions)
         import main
         reload(main)
+        import head_control
+        reload(head_control)
+        import UI
+        reload(UI)
         #import gui
-        UI.createUI() # Start UI
+        #UI.createUI() # Start UI
+
 
 class errorWindow:
     """
@@ -103,13 +106,13 @@ class errorWindow:
         This function closed the window and is run when the 'OK' button is run
         """
         cmds.deleteUI(self.win)
-
+"""
 try: # If a gui is already open close it
     if cmds.window( win.window, exists=True ):
         cmds.deleteUI( win.window, window=True )
 except:
     pass
-
+"""
 import maya.cmds as cmds
 import sys
 load = findPathWindow()
