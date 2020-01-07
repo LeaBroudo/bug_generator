@@ -6,9 +6,19 @@ class Head:
         #self.name = name
         self.antLen = 1
         self.antWidth = 1
+
         self.manLen = 1
         self.manWidth = 1
         self.manHeight = 1
+
+        self.eyeSize = 1
+
+        self.faceLen = 1
+        self.faceRad = 1
+        self.faceTilt = 1
+
+        self.neck_min = 1
+        self.neck_max = 1
 
     ### Helpers ###
     def getPortion(self, latt, start, end, add=False):
@@ -21,103 +31,59 @@ class Head:
         else:
             cmds.select(selectStr)
     
-    
-    ### Full Head ###
-    def tiltHead(self, deg):
-        #get max x of head
-
-        #move pivot there
-
-        #set soft select 
-        #tilt head degrees 
-        '''
-        TODO
-        '''
-
-    def scaleHead(self, scale_x, scale_y, scale_z):
-        #turn symmetry off from self.body
-        #set soft select 
-        #scale
-        #turn symmetry on 
-        '''
-        TODO
-        '''
 
     ### Neck ###
-    def scaleNeckBase(self, scale_x, scale_y, scale_z):
-        #turn symmetry off from self.body
-        #set soft select 
-        #scale
-        #turn symmetry on
-        '''
-        TODO
-        '''
+    def scaleNeck(self, num):
+        if num <= 1:
+            front_mid = [1,2,2]
+            self.getPortion(loc.neck_str, loc.neck_latt[0], front_mid)
+            cmds.scale(1, 1.0/self.neck_min, 1.0/self.neck_min, r=True)
+            self.neck_min = num
 
-    def scaleNeck(self, scale_x, scale_y, scale_z):
-        #turn symmetry off from self.body
-        #set soft select 
-        #scale
-        #turn symmetry on 
-        '''
-        TODO
-        '''
-    
-    def moveNeck(self, move_x, move_y, move_z):
-        #set soft select 
-        #move
-        '''
-        TODO
-        '''
+        else:
+            mid = [1,0,0]
+            back = [2,2,2]
+            self.getPortion(loc.neck_str, mid, back)
+            cmds.scale(1, 1.0/self.neck_max, 1.0/self.neck_max, r=True)
+            self.neck_max = num
+
+        cmds.scale(1, num, num, r=True)
     
     ### Face ###
-    def scaleFace(self, scale_x, scale_y, scale_z):
-        #turn symmetry off from self.body
-        #set soft select 
-        #scale
-        #turn symmetry on 
-        '''
-        TODO
-        '''
+    def lenFace(self, num):
+        front_mid = [2,2,2]
+        self.getPortion(loc.face_str, loc.face_latt[0], front_mid)
+        cmds.scale(1.0/self.faceLen, 1, 1, r=True)
+        cmds.scale(num, 1, 1, r=True)
+        self.faceLen = num
     
-    def moveFace(self, move_x, move_y, move_z):
-        #set soft select 
-        #move
-        '''
-        TODO
-        '''
+    def radFace(self, num):
+        front_mid = [2,2,2]
+        self.getPortion(loc.face_str, loc.face_latt[0], front_mid)
+        cmds.scale(1, 1.0/self.faceRad, 1.0/self.faceRad, r=True)
+        cmds.scale(1, num, num, r=True)
+        self.faceRad = num
 
-    def pattern(self, vars):
-        #iterate through faces and lift up varying degrees?
-        '''
-        TODO
-        '''
-
-    ### Nose ###
-    def scaleNose(self, scale_x, scale_y, scale_z):
-        #turn symmetry off from self.body
-        #set soft select 
-        #scale
-        #turn symmetry on 
-        '''
-        TODO
-        '''
-    
-    def moveNose(self, move_x, move_y, move_z):
-        #set soft select 
-        #move
-        '''
-        TODO
-        '''
+    def tiltFace(self, num):
+        cmds.rotate(0, 0, (-1*self.faceTilt) + num, loc.face_str)
 
     ### Eyes ###
     def sizeEyes(self, num):
+        self.getPortion(loc.eye_l_str, loc.eye_latt[0], loc.eye_latt[1])
+        self.getPortion(loc.eye_r_str, loc.eye_latt[0], loc.eye_latt[1], True)
+
+        cmds.scale(1.0/self.eyeSize, 1.0/self.eyeSize, 1.0/self.eyeSize, r=True)
+        cmds.scale(num, num, num, r=True)
+        self.eyeSize = num
+
+    def distEyes(self, num):
         front_mid = [1,2,4]
         self.getPortion(loc.man_str, loc.man_latt[0], front_mid)
         cmds.scale(1.0/self.manLen, 1, 1, r=True)
         cmds.scale(num, 1, 1, r=True)
         self.manLen = num
-
-    def distEyes(self, num):
+        
+    def angleEyes(self, num):
         front_mid = [1,2,4]
         self.getPortion(loc.man_str, loc.man_latt[0], front_mid)
         cmds.scale(1.0/self.manLen, 1, 1, r=True)

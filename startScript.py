@@ -77,6 +77,14 @@ class findPathWindow:
         reload(main)
         import head_control
         reload(head_control)
+        import arm_control
+        reload(arm_control)
+        #import thorax_control
+        #reload(thorax_control)
+        #import wing_control
+        #reload(wing_control)
+        #import abdomen_control
+        #reload(abdomen_control)
         import UI
         reload(UI)
         #import gui

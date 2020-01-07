@@ -1,4 +1,5 @@
 import maya.cmds as cmds
+import maya.mel as mel
 import os
 import random
 import regions as loc
@@ -17,8 +18,7 @@ class Body:
 
         # User Variables
         self.name = "" 
-        self.a_arms = []
-        self.t_arms = []
+        self.arms = []
         self.wings = []
 
     def importAll(self, name, wing_num, abd_arm_num, thorax_arm_num):
@@ -35,7 +35,7 @@ class Body:
             #import arm
             temp_arm = "temp_arm"
             cmds.file( pathVar+"/Arm.mb", i=True, dns=True )
-            cmds.rename( "Arm", temp_arm )
+            cmds.rename( "Arm_", temp_arm )
 
             #Create separate arm locs
             positions = random.sample(loc.thorax_arms, abd_arm_num)
@@ -43,25 +43,34 @@ class Body:
 
             for pos in positions:
                 #Duplicate, add to list
-                idx = str(len(self.a_arms)+1)
+                idx = str(len(self.arms)+1)
                 arm_name = "Arm_"+idx
-                cmds.duplicate(temp_arm, name=arm_name, rc=True)
-                self.a_arms.append(arm_control.Arm(arm_name))
-                #move to correct location
-                cmds.move(pos[0], pos[1], pos[2], arm_name)
+                cmds.duplicate(temp_arm, name=arm_name, rc=True, rr=True)
+                self.arms.append(arm_control.Arm(idx))
                 #Parent Body
                 cmds.parent(arm_name, "BODY")
+                #Bind Skin
+                cmds.skinCluster(loc.arm_joint+idx, loc.arm_mesh+idx)
+                #Copy Skin Weights 
+                mel.eval("select -r "+loc.arm_mesh)
+                mel.eval("select -add "+loc.arm_mesh+idx)
+                mel.eval("copySkinWeights  -noMirror -surfaceAssociation closestPoint -influenceAssociation closestJoint;")
+                #move to correct location
+                cmds.move(pos[0], pos[1], pos[2], loc.arm_joint+idx)
                 #Add lattice
-                cmds.select(arm_name)
-                cmds.lattice( dv=(6, 10, 25), oc=True, n="arm"+idx )
-                cmds.rename("arm"+idx+"Lattice","arm_latt_"+idx)
-                cmds.delete("arm"+idx+"Base")
-                cmds.parent("arm_latt_"+idx, arm_name)
+                #cmds.select(arm_name)
+                #cmds.lattice( dv=(6, 10, 25), oc=True, n="arm"+idx )
+                #cmds.rename("arm"+idx+"Lattice","arm_latt_"+idx)
+                #cmds.delete("arm"+idx+"Base")
+                #cmds.parent("arm_latt_"+idx, arm_name)
                 #Duplicate to other side
-                cmds.duplicate(arm_name, name=arm_name+"_R", ic=True, rc=True) 
-                cmds.delete("arm_latt_"+str(int(idx)+1))
-                cmds.scale(1,1,-1, arm_name+"_R")
-                cmds.move(-3.25, arm_name+"_R", z=True)
+                temp_right = arm_name+"_R"
+                cmds.duplicate(arm_name, name=temp_right,ic=True, rc=False) 
+                cmds.scale(1,1,-1, temp_right)
+                cmds.move(-3.25, temp_right, z=True)
+                cmds.rename(temp_right+"|"+loc.arm_mesh+idx, loc.arm_mesh+idx+"_R")
+                #cmds.parent(loc.arm_mesh+idx+"_R", arm_name)
+                cmds.delete(temp_right+"|"+loc.arm_joint+idx)
 
             #DELETE original
             cmds.delete(temp_arm)
@@ -105,8 +114,7 @@ class Body:
             cmds.delete(temp_wing)
 
 
-        # Iterate through user preferences and instantiate global vars w/ body objects?
-        #Head
+        return self.arms, self.wings
 
     
     #Deformers 
