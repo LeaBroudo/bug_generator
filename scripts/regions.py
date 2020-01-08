@@ -46,32 +46,51 @@ back_abd_latt = [(12,0,0),(20,20,20)]
 wing_rot = (36,-15,33)
 wing_locs = [(4,8,3), (16,8,3)] 
 
-#REDOOOOOOOO
-wing_latt = [(0,0,0),(8,3,3)]
-wing_root_latt = [(0,0,0),(2,3,3)]
-wing_ins_latt = [(1,0,0),(5,3,3)]
-wing_out_latt = [(4,0,0),(8,3,3)]
+wing_mesh = "wing_mesh_"
+wing_base = "wing_base_joint_"
+wing = "wing_joint_"
+wing_latt = "wing_latt_"
 
-wing_patt_latt = [(0,0,0),(30,2,20)]
+body_wing_joints = {
+    wing_locs[0][0] : "thorax_1_joint",
+    wing_locs[1][0] : "thorax_2_joint"
+}
 
 ### Arms ###
-arm_latt = [(0,0,0),(6,10,25)]
-arm_str = "arm_latt_"
-femur_latt = [(0,0,6),(6,10,15)]
+arm_mesh = "arm_mesh_"
+arm = "arm_joint_"
+shoulder = "shoulder_joint_"
+femur = "femur_joint_"
+knee = "knee_joint_"
+tibia = "tibia_joint_"
+tarsus = "tarsus_joint_"
+hand = "hand_joint_"
 
-tibia_latt = [(0,0,16),(5,9,24)]
-tibia_len = [.75,2]
+tibia_len = [0,10]
+tibia_rad = [1,2]
 
-tarsus_latt = [(0,0,21),(5,9,24)]
-tarsus_len = [.75,2]
+tarsus_len = [0,10]
+tarsus_rad = [1,2]
 
-knee_latt = [(0,6,12),(6,10,16)]
+femur_len = [1,10]
+femur_rad = [1,2]
+
+shoulder_len = [.5,10]
+shoulder_rad = [1,1.5]
 
 thorax_arms = [(-12,3,5), (-6,3,5), (0,3,5)]
 abdomen_arms = [(10,3,5), (16,3,5), (22,3,5)]
+right_diff = -2.5  
 
-##
-arm_mesh = "arm_mesh_"
-arm_joint = "arm_joint_"
+body_arm_joints = {
+    thorax_arms[0][0] : "thorax_1_joint",
+    thorax_arms[1][0] : "thorax_2_joint",
+    thorax_arms[2][0] : "thorax_3_joint",
+    abdomen_arms[0][0] : "abdomen_1_joint",
+    abdomen_arms[1][0] : "abdomen_2_joint",
+    abdomen_arms[2][0] : "abdomen_3_joint",
+}
+
+
 
 ### Colors/Materials ###

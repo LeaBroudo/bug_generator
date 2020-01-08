@@ -50,13 +50,13 @@ class Body:
                 #Parent Body
                 cmds.parent(arm_name, "BODY")
                 #Bind Skin
-                cmds.skinCluster(loc.arm_joint+idx, loc.arm_mesh+idx)
+                cmds.skinCluster(loc.arm+idx, loc.arm_mesh+idx)
                 #Copy Skin Weights 
                 mel.eval("select -r "+loc.arm_mesh)
                 mel.eval("select -add "+loc.arm_mesh+idx)
                 mel.eval("copySkinWeights  -noMirror -surfaceAssociation closestPoint -influenceAssociation closestJoint;")
                 #move to correct location
-                cmds.move(pos[0], pos[1], pos[2], loc.arm_joint+idx)
+                cmds.move(pos[0], pos[1], pos[2], loc.arm+idx)
                 #Add lattice
                 #cmds.select(arm_name)
                 #cmds.lattice( dv=(6, 10, 25), oc=True, n="arm"+idx )
@@ -67,10 +67,12 @@ class Body:
                 temp_right = arm_name+"_R"
                 cmds.duplicate(arm_name, name=temp_right,ic=True, rc=False) 
                 cmds.scale(1,1,-1, temp_right)
-                cmds.move(-3.25, temp_right, z=True)
+                cmds.move(loc.right_diff, temp_right, z=True)
                 cmds.rename(temp_right+"|"+loc.arm_mesh+idx, loc.arm_mesh+idx+"_R")
                 #cmds.parent(loc.arm_mesh+idx+"_R", arm_name)
-                cmds.delete(temp_right+"|"+loc.arm_joint+idx)
+                cmds.delete(temp_right+"|"+loc.arm+idx)
+                #Parent joint to body
+                cmds.parent(loc.arm+idx, loc.body_arm_joints[pos[0]])
 
             #DELETE original
             cmds.delete(temp_arm)
@@ -81,7 +83,7 @@ class Body:
             #import wing
             temp_wing = "temp_wing"
             cmds.file( pathVar+"/Wing.mb", i=True, dns=True )
-            cmds.rename( "Wing", temp_wing )
+            cmds.rename( "Wing_", temp_wing )
             
             #Find Positions
             positions = random.sample(loc.wing_locs, wing_num)

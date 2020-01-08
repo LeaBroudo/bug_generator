@@ -17,6 +17,8 @@ w_num = 0
 a_arms = 0
 t_arms = 0
 
+height = 10
+
 window = cmds.window( title="Bug Generator", iconName="Bug Generator", widthHeight=(412, 600) )
 cmds.columnLayout( adjustableColumn=True )
 
@@ -68,12 +70,13 @@ def generateBody(*args):
     global wings
     arms, wings = body.importAll(name, w_num, a_arms, t_arms)
 
+    cmds.intSliderGrp( "curr_Arm", max=len(arms), e=True)
+    cmds.intSliderGrp( "curr_Arm", min=0 if len(arms)==0 else 1, e=True)
+
     
 cmds.rowColumnLayout( numberOfColumns=1, columnWidth=[(1, 412)],p=window)
 cmds.button( label='Generate Body', command=generateBody )
-
-#FOR LOOP FOR ALL BUTTONS
-
+cmds.separator( h=height,st="none" )
 
 
 ### HEAD ###
@@ -91,6 +94,8 @@ def widthAnt(*args):
     head.widthAntenna(scaleVal)
 
 cmds.floatSliderGrp( "ant_width", l="Antenna Width: ", v=1, cw3=[100,30,100], min=loc.ant_width[0], max=loc.ant_width[1], fmx=loc.ant_width[1], f=True, dc=widthAnt)
+
+cmds.separator( h=height,st="none" )
 
 ### Mandibles ###
 #Width
@@ -114,6 +119,8 @@ def heightMan(*args):
 
 cmds.floatSliderGrp( "man_height", l="Mandible Height: ", v=1, cw3=[100,30,100], min=loc.man_height[0], max=loc.man_height[1], fmx=loc.man_height[1], f=True, dc=heightMan)
 
+cmds.separator( h=height,st="none" )
+
 ### Eyes ###
 #Size
 def sizeEyes(*args):
@@ -121,6 +128,8 @@ def sizeEyes(*args):
     head.sizeEyes(scaleVal)
 
 cmds.floatSliderGrp( "eye_size", l="Eye Size: ", v=1, cw3=[100,30,100], min=loc.eye_scale[0], max=loc.eye_scale[1], fmx=loc.eye_scale[1], f=True, dc=sizeEyes)
+
+cmds.separator( h=height,st="none" )
 
 ### Face ###
 #Length
@@ -144,6 +153,8 @@ def tiltFace(*args):
 
 cmds.floatSliderGrp( "face_tilt", l="Face Tilt: ", v=1, cw3=[100,30,100], min=loc.face_tilt[0], max=loc.face_tilt[1], fmx=loc.face_tilt[1], f=True, dc=tiltFace)
 
+cmds.separator( h=height,st="none" )
+
 ### Neck ###
 #Scale
 def scaleNeck(*args):
@@ -152,21 +163,71 @@ def scaleNeck(*args):
 
 cmds.floatSliderGrp( "neck_scale", l="Neck Scale: ", v=1, cw3=[100,30,100], min=loc.neck_scale[0], max=loc.neck_scale[1], fmx=loc.neck_scale[1], f=True, dc=scaleNeck)
 
-### ARM ###
-### Tarsus ###
-i = 0
+cmds.separator( h=height,st="none" )
 
+### ARM ###
+### Current Arm ###
+cmds.intSliderGrp( "curr_Arm", l="Current Arm: ", v=1, cw3=[100,30,100], min=0, max=0, fmx=0, f=True)
+
+### Tarsus ###
 def lenTarsus(*args):
     scaleVal = cmds.floatSliderGrp( "len_tarsus", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
     arms[i].lenTarsus(scaleVal)
 
 cmds.floatSliderGrp( "len_tarsus", l="Tarsus Length: ", v=1, cw3=[100,30,100], min=loc.tarsus_len[0], max=loc.tarsus_len[1], fmx=loc.tarsus_len[1], f=True, dc=lenTarsus)
 
+def radTarsus(*args):
+    scaleVal = cmds.floatSliderGrp( "rad_tarsus", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].radTarsus(scaleVal)
+
+cmds.floatSliderGrp( "rad_tarsus", l="Tarsus Radius: ", v=1, cw3=[100,30,100], min=loc.tarsus_rad[0], max=loc.tarsus_rad[1], fmx=loc.tarsus_rad[1], f=True, dc=radTarsus)
+
+### Tibia ###
 def lenTibia(*args):
     scaleVal = cmds.floatSliderGrp( "len_tibia", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
     arms[i].lenTibia(scaleVal)
 
 cmds.floatSliderGrp( "len_tibia", l="Tibia Length: ", v=1, cw3=[100,30,100], min=loc.tibia_len[0], max=loc.tibia_len[1], fmx=loc.tibia_len[1], f=True, dc=lenTibia)
+
+def radTibia(*args):
+    scaleVal = cmds.floatSliderGrp( "rad_tibia", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].radTibia(scaleVal)
+
+cmds.floatSliderGrp( "rad_tibia", l="Tibia Radius: ", v=1, cw3=[100,30,100], min=loc.tibia_rad[0], max=loc.tibia_rad[1], fmx=loc.tibia_rad[1], f=True, dc=radTibia)
+
+### Femur ###
+def lenFemur(*args):
+    scaleVal = cmds.floatSliderGrp( "len_femur", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].lenFemur(scaleVal)
+
+cmds.floatSliderGrp( "len_femur", l="Femur Length: ", v=1, cw3=[100,30,100], min=loc.femur_len[0], max=loc.femur_len[1], fmx=loc.femur_len[1], f=True, dc=lenFemur)
+
+def radFemur(*args):
+    scaleVal = cmds.floatSliderGrp( "rad_femur", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].radFemur(scaleVal)
+
+cmds.floatSliderGrp( "rad_femur", l="Femur Radius: ", v=1, cw3=[100,30,100], min=loc.femur_rad[0], max=loc.femur_rad[1], fmx=loc.femur_rad[1], f=True, dc=radFemur)
+
+### Shoulder ###
+def lenShoulder(*args):
+    scaleVal = cmds.floatSliderGrp( "len_shoulder", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].lenShoulder(scaleVal)
+
+cmds.floatSliderGrp( "len_shoulder", l="Shoudler Length: ", v=1, cw3=[100,30,100], min=loc.shoulder_len[0], max=loc.shoulder_len[1], fmx=loc.shoulder_len[1], f=True, dc=lenShoulder)
+
+def radShoulder(*args):
+    scaleVal = cmds.floatSliderGrp( "rad_shoulder", q=True, v=True )
+    i = cmds.intSliderGrp( "curr_Arm", q=True, v=True ) - 1
+    arms[i].radShoulder(scaleVal)
+
+cmds.floatSliderGrp( "rad_shoulder", l="Shoulder Radius: ", v=1, cw3=[100,30,100], min=loc.shoulder_rad[0], max=loc.shoulder_rad[1], fmx=loc.shoulder_rad[1], f=True, dc=radShoulder)
 
 
 
