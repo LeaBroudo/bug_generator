@@ -12,6 +12,7 @@ class Head:
         self.manHeight = 1
 
         self.eyeSize = 1
+        self.eyeDist = 1
 
         self.faceLen = 1
         self.faceRad = 1
@@ -69,26 +70,19 @@ class Head:
 
     ### Eyes ###
     def sizeEyes(self, num):
-        self.getPortion(loc.eye_l_str, loc.eye_latt[0], loc.eye_latt[1])
-        self.getPortion(loc.eye_r_str, loc.eye_latt[0], loc.eye_latt[1], True)
+        cmds.select(loc.eye_l_joint)
+        cmds.select(loc.eye_r_joint, add=True)
 
-        cmds.scale(1.0/self.eyeSize, 1.0/self.eyeSize, 1.0/self.eyeSize, r=True)
-        cmds.scale(num, num, num, r=True)
+        cmds.scale(num/self.eyeSize, num/self.eyeSize, num/self.eyeSize, r=True)
         self.eyeSize = num
 
     def distEyes(self, num):
-        front_mid = [1,2,4]
-        self.getPortion(loc.man_str, loc.man_latt[0], front_mid)
-        cmds.scale(1.0/self.manLen, 1, 1, r=True)
-        cmds.scale(num, 1, 1, r=True)
-        self.manLen = num
-        
-    def angleEyes(self, num):
-        front_mid = [1,2,4]
-        self.getPortion(loc.man_str, loc.man_latt[0], front_mid)
-        cmds.scale(1.0/self.manLen, 1, 1, r=True)
-        cmds.scale(num, 1, 1, r=True)
-        self.manLen = num
+        self.getPortion(loc.eye_l_str, loc.eye_latt[0], loc.eye_latt[1])
+        self.getPortion(loc.eye_r_str, loc.eye_latt[0], loc.eye_latt[1], True)
+
+        cmds.scale(1.0/self.eyeDist, 1.0/self.eyeDist, 1.0/self.eyeDist, r=True)
+        cmds.scale(num, num, num, r=True)
+        self.eyeDist = num
 
     ### Mandibles ###
     def lenMandibles(self, num):
